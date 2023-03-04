@@ -6,7 +6,7 @@ const DEFAULT_LIMIT = 10;
 const DEFAULT_PAGE = 1;
 
 
-
+//get users
 router.get("/users", authorization, (req, res, next) =>{
     const {limit, page} = req.query;
 
@@ -24,6 +24,32 @@ router.get("/users", authorization, (req, res, next) =>{
         if(err) next(err);
 
         res.status(200).json(result.rows);
+    });
+});
+
+//get users by id
+// get movies by id
+router.get("/users/:id", authorization, (req, res, next) =>{
+    const {id} = req.params;
+    const findOneQuery = `
+    SELECT
+        *
+    FROM users
+    WHERE users.id = $1
+    `
+
+    pool.query(findOneQuery, [id], (err, result) => {
+        if(err) next(err);
+
+        if(result.rows.length === 0) {
+            //NOT FOUND
+            next({name: "ErrorNotFound"});
+        } else {
+            //FOUND
+            res.status(200).json(result.rows[0]);
+        };
+
+        
     });
 });
 
