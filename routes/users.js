@@ -27,4 +27,45 @@ router.get("/users", authorization, (req, res, next) =>{
     });
 });
 
+//Put
+
+router.put("/users/:id", authorization, (req, res, next) => {
+    const {id} = req.params;
+    const {email, password, gender, role} = req.body;
+
+    const updateUser = `
+        UPDATE movies
+        SET email = $1,
+            password = $2,
+            gender = $3,
+            role = $4,
+        WHERE id = $5;
+
+    `
+
+    pool.query(updateUser, [email, password, gender, role], (err, result) => {
+        if(err) next(err);
+
+        res.status(200).json({
+            message: "Updated successfully"
+        });
+    });
+});
+
+//DELETE
+router.delete("/users/:id", authorization, (req, res, next) => {
+    const {id} = req.params;
+    const deleteUser = `
+            DELETE FROM users
+            WHERE id = $1;
+    `
+    pool.query(deleteUser, [id], (err,result) => {
+        if(err) next(err);
+
+        res.status(200).json({
+            message: "Deleted successfully"
+        });
+    });
+});
+
 module.exports = router;
