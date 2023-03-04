@@ -1,0 +1,236 @@
+{
+  "openapi": "3.0.3",
+  "options": {
+    "info": {
+      "title": "Movies API 3.0",
+      "version": "1.0.1",
+      "description": "Movies Library API",
+      "contact": {
+        "email": "developer@gmail.com"
+      }
+    }
+  },
+  
+  "servers": [
+    {
+      "url": "https://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/movies": {
+      "get": {
+        "summary": "find all movies",
+        "tags": [
+          "movies"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful find movies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Movies"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "create movie",
+        "tags": [
+          "movies"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "Create new movie",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Movies"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful create movie",
+            "content": {
+              "applicattion/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/{moviesId}": {
+      "get": {
+        "summary": "find by Id",
+        "tags": [
+          "movies"
+        ],
+        "parameters": [
+          {
+            "name": "moviesId",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful find game by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movies"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "edit by id",
+        "tags": [
+          "movies"
+        ],
+        "parameters": [
+          {
+            "name": "moviesId",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful edit movie by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movies"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete by id",
+        "tags": [
+          "movies"
+        ],
+        "parameters": [
+          {
+            "name": "moviesId",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful delete movie by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movies"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Movies": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Ello"
+          },
+          "genres": {
+            "type": "string",
+            "example": "ello"
+          },
+          "year": {
+            "type": "integer",
+            "example": 2017
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "success"
+          }
+        }
+      }
+    }
+  }
+}
