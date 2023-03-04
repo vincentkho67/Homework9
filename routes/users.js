@@ -60,7 +60,7 @@ router.put("/users/:id", authorization, (req, res, next) => {
     const {email, password, gender, role} = req.body;
 
     const updateUser = `
-        UPDATE movies
+        UPDATE users
         SET email = $1,
             password = $2,
             gender = $3,
