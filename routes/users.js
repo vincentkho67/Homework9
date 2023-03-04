@@ -28,7 +28,7 @@ router.get("/users", authorization, (req, res, next) =>{
 });
 
 //get users by id
-// get movies by id
+
 router.get("/users/:id", authorization, (req, res, next) =>{
     const {id} = req.params;
     const findOneQuery = `
