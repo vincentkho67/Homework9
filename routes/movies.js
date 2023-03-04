@@ -77,7 +77,7 @@ router.put("/movies/:id", authorization, (req, res, next) => {
     const {id} = req.params;
     const {title, genres, year} = req.body;
 
-    const UpdateGame = `
+    const updateMovies = `
         UPDATE movies
         SET title = $1,
             genres = $2,
@@ -86,7 +86,7 @@ router.put("/movies/:id", authorization, (req, res, next) => {
 
     `
 
-    pool.query(UpdateGame, [title, genres, year, id], (err, result) => {
+    pool.query(updateMovies, [title, genres, year, id], (err, result) => {
         if(err) next(err);
 
         res.status(200).json({
